@@ -3,7 +3,8 @@ import {StyleSheet, View, Text, LogBox, Image, TouchableOpacity} from 'react-nat
 
 export default function AboutPage(){
     LogBox.ignoreAllLogs();
-  return (<View style={styles.container}>
+  return (
+    <View style={styles.container}>
         <Text style={styles.welcomText}>{`Hi! 스파르타코딩 앱개발
 반에 오신것을 환영합니다`}</Text>
         <View style={styles.innerContainer}>
@@ -14,7 +15,7 @@ export default function AboutPage(){
                 <Text style={styles.instaButtonText}>여러분의 인스타계정</Text>
             </TouchableOpacity>
         </View>
-      </View>)
+    </View>)
 }
 
 const styles = StyleSheet.create({
