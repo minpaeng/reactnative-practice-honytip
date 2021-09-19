@@ -1,10 +1,25 @@
-import React from 'react'
-import {StyleSheet, View, Text, LogBox, Image, TouchableOpacity} from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import React, {useEffect} from 'react'
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native'
 
-export default function AboutPage(){
-    LogBox.ignoreAllLogs();
+export default function AboutPage({navigation}){
+
+    useEffect(()=>{
+	   
+        navigation.setOptions({
+            title:"소개 페이지",
+            headerStyle: {
+                backgroundColor: '#1f266A',
+                shadowColor: "#1f266A",
+            },
+            headerTintColor: "#fff"
+        })
+        
+      },[])
+
   return (
     <View style={styles.container}>
+        <StatusBar style="light"/>
         <Text style={styles.welcomText}>{`Hi! 스파르타코딩 앱개발
 반에 오신것을 환영합니다`}</Text>
         <View style={styles.innerContainer}>
@@ -21,14 +36,14 @@ export default function AboutPage(){
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"#12154D"
+        backgroundColor:"#1f266A"
     },
     welcomText:{
         fontSize:36,
         color:"#fff",
         alignSelf:"center",
-        marginTop:50,
-        marginBottom:50
+        marginTop:10,
+        marginBottom:40
     },
     innerContainer:{
         flex:1,
@@ -46,7 +61,7 @@ const styles = StyleSheet.create({
         alignSelf:"center"
     },
     contentText:{
-        fontSize:25,
+        fontSize:23,
         fontWeight:"bold",
         alignSelf:"center",
         textAlign:"center"
@@ -56,7 +71,7 @@ const styles = StyleSheet.create({
         marginBottom:25,
         marginRight:10,
         marginLeft:10,
-        fontSize:20,
+        fontSize:18,
         textAlign:"center",
         alignSelf:"center"
     },
@@ -72,6 +87,6 @@ const styles = StyleSheet.create({
         color:"#fff",
         textAlign:"center",
         textAlignVertical:"center",
-        fontSize:20
+        fontSize:18
     }
 })
