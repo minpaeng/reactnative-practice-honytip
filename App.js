@@ -1,12 +1,22 @@
-import React from 'react'
-import MainPage from './pages/MainPage';
-import AboutPage from './pages/AboutPage';
-import DetailPage from './pages/DetailPage';
-import {LogBox} from 'react-native';
+import React from 'react';
+//이제 모든 페이지 컴포넌트들이 끼워져있는 책갈피를 메인에 둘예정이므로
+//컴포넌트를 더이상 불러오지 않아도 됩니다.
+// import MainPage from './pages/MainPage';
+// import DetailPage from './pages/DetailPage';
+import { StatusBar } from 'expo-status-bar';
 
-export default function App(){
+//메인에 세팅할 네비게이션 도구들을 가져옵니다.
+import {NavigationContainer} from '@react-navigation/native';
+import StackNavigator from './navigation/StackNavigator'
+import { LogBox } from 'react-native';
+
+export default function App() {
+
   LogBox.ignoreAllLogs();
-   return (<MainPage/>)
-  // return (<AboutPage/>)
-  // return(<DetailPage/>)
+
+  return ( 
+  <NavigationContainer>
+    <StatusBar style="black" />
+    <StackNavigator/>
+ </NavigationContainer>);
 }
