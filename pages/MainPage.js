@@ -1,15 +1,14 @@
 import React,{useState,useEffect} from 'react';
 import main from '../assets/main.png';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
-import data from '../data.json';
 import Card from '../components/Card';
 import Loading from '../components/Loading';
 import { StatusBar } from 'expo-status-bar';
 import * as Location from "expo-location";
 import axios from "axios"
+import {firebase_db} from "../firebaseConfig"
 
 export default function MainPage({navigation,route}) {
-  console.disableYellowBox = true;
   //return 구문 밖에서는 슬래시 두개 방식으로 주석
 
   //기존 꿀팁을 저장하고 있을 상태
@@ -37,12 +36,21 @@ export default function MainPage({navigation,route}) {
         navigation.setOptions({
             title:'나만의 꿀팁'
         })
-        //꿀팁 데이터로 모두 초기화 준비
-        let tip = data.tip;
-        setState(tip)
-        setCateState(tip)
-        getLocation()
-        setReady(false)
+        firebase_db.ref('/tip').once('value').then((snapshot) => {
+          console.log("파이어베이스에서 데이터 가져왔습니다!!")
+          let tip = snapshot.val();
+          setState(tip)
+          setCateState(tip)
+          getLocation()
+          setReady(false)
+        });
+        // setTimeout(()=>{
+        //     let tip = data.tip;
+        //     setState(tip)
+        //     setCateState(tip)
+        //     getLocation()
+        //     setReady(false)
+        // },500)
     },1000)
 
     
@@ -53,7 +61,7 @@ export default function MainPage({navigation,route}) {
     //해당 에러를 포착하여 로직을 멈추고,에러를 해결하기 위한 catch 영역 로직이 실행
     try {
       //자바스크립트 함수의 실행순서를 고정하기 위해 쓰는 async,await
-      await Location.requestPermissionsAsync();
+      await Location.requestForegroundPermissionsAsync();
       const locationData= await Location.getCurrentPositionAsync();
       const latitude = locationData['coords']['latitude']
       const longitude = locationData['coords']['longitude']
